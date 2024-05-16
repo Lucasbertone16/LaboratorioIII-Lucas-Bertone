@@ -1,0 +1,12 @@
+tubanco\Inputs\CuentaBancariaInput.class
+tubanco\model\CuentaBancaria.class
+tubanco\model\Operacion$TipoOperacion.class
+tubanco\Inputs\ClienteInput.class
+tubanco\model\Cliente.class
+tubanco\model\MovimientoCuenta.class
+tubanco\model\Menu.class
+tubanco\model\MovimientoCuenta$TipoOperacion.class
+tubanco\model\Persona.class
+tubanco\model\Operacion.class
+tubanco\Main.class
+tubanco\model\CuentaBancaria$TipoCuenta.class
