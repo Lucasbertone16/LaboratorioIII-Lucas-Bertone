@@ -1,7 +1,10 @@
-package tubanco.model;
+package tubanco.Inputs;
 
 import java.time.LocalDate;
 import java.util.Scanner;
+
+import tubanco.model.*;
+
 
 public class CuentaBancariaInput {
     private Scanner scanner;

@@ -1,11 +1,10 @@
-package tubanco.model;
+package tubanco.Inputs;
 
+import java.util.Scanner;
+import tubanco.model.Cliente; 
 import java.time.LocalDate;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
 
 public class ClienteInput {
     protected static List<Cliente> clientes = new ArrayList<>();
@@ -116,8 +115,8 @@ public class ClienteInput {
         }
     
         if (clienteAModificar != null) {
-            if (atributo.equalsIgnoreCase("identificador")) {
-                System.out.println("No se puede modificar el identificador.");
+            if (atributo.equalsIgnoreCase("identificador")|| atributo.equalsIgnoreCase("banco")) {
+                System.out.println("No se puede modificar el identificador, ni el banco!!");
             } else {
                 switch (atributo.toLowerCase()) {
                     case "nombre":
@@ -134,11 +133,6 @@ public class ClienteInput {
                         System.out.println("Ingrese el nuevo DNI del cliente: ");
                         long nuevoDNI = scanner.nextLong();
                         clienteAModificar.setDni(nuevoDNI);
-                        break;
-                    case "banco":
-                        System.out.println("Ingrese el nuevo banco del cliente: ");
-                        String nuevoBanco = scanner.nextLine();
-                        clienteAModificar.setBanco(nuevoBanco);
                         break;
                     case "fechaNacimiento":
                     LocalDate fechaNacimiento = null;

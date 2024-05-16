@@ -1,6 +1,10 @@
 package tubanco.model;
 import java.util.Scanner;
 
+
+import tubanco.Inputs.*;
+import tubanco.model.*;
+
 public class Menu {
     protected Scanner scanner;
     protected ClienteInput clienteInput;
@@ -40,7 +44,7 @@ public class Menu {
                 int identificadorClienteModificar = scanner.nextInt();
                 scanner.nextLine();
             
-                System.out.println("Ingrese el atributo que desea modificar (nombre, apellido, dni, banco, fechaNacimiento, fechaAlta): ");
+                System.out.println("Ingrese el atributo que desea modificar (nombre, apellido, dni,fechaNacimiento, fechaAlta): ");
                 String atributoModificar = scanner.nextLine();
             
                 clienteInput.modificarCliente(identificadorClienteModificar, atributoModificar);
