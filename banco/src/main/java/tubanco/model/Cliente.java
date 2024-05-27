@@ -7,6 +7,7 @@ import java.util.Set;
 public class Cliente extends Persona{
    protected String banco;
    protected LocalDate fechaAlta;
+   protected String tipoPersona;
    protected Set<CuentaBancaria> cuentas = new HashSet<>();
    protected int identificador;
 
@@ -57,6 +58,14 @@ public void eliminarCuenta(CuentaBancaria cuenta) {
 
     public void setIdentificador(int identificador) {
         this.identificador = identificador;
+    }
+
+    public String getTipoPersona() {
+        return tipoPersona;
+    }
+
+    public void setTipoPersona(String tipoPersona) {
+        this.tipoPersona = tipoPersona;
     }
     
 }
