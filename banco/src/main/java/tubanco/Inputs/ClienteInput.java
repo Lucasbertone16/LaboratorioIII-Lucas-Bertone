@@ -87,8 +87,6 @@ public class ClienteInput {
     }
 
     public void eliminarCliente(int identificador) {
-        System.out.println("Ingrese el identificador del cliente: ");
-        identificador=scanner.nextInt();
         ClienteDAO clienteDAO= new ClienteDAO();
         clienteDAO.eliminarCliente(identificador);
     }

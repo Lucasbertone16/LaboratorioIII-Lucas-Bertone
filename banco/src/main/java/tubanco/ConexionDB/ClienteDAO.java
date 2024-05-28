@@ -30,7 +30,6 @@ public class ClienteDAO {
             Connection connection = conexion.ConectarDB();
             statement=connection.prepareStatement("DELETE FROM usuario WHERE dni=?");
             statement.setInt(1, identificador);
-            statement.executeUpdate();
             int filasAfectadas= statement.executeUpdate();
             if (filasAfectadas>0) {
                 System.out.println("Se elimino correctamente al usuario con identificador: "+ identificador);
@@ -38,8 +37,17 @@ public class ClienteDAO {
             else{
                 System.out.println("Cliente no encontrado en la base de datos");
             }
+            statement.close(); // Cerramos el statement
         } catch (SQLException e) {
             System.out.println("Error en la QUERY: "+ e.getMessage());
         }
+    }
+
+    public void modificarCliente(int identificador){
+
+    }
+
+    public void mostarCliente(int identificador){
+
     }
 }
