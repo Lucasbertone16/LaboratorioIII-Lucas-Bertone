@@ -9,7 +9,7 @@ public class Cliente extends Persona{
    protected LocalDate fechaAlta;
    protected String tipoPersona;
    protected Set<CuentaBancaria> cuentas = new HashSet<>();
-   protected int identificador;
+   protected long identificador;
 
    public Cliente(){}
 
@@ -52,11 +52,11 @@ public void eliminarCuenta(CuentaBancaria cuenta) {
         this.cuentas = cuentas;
     }
 
-    public int getIdentificador() {
+    public long getIdentificador() {
         return identificador;
     }
 
-    public void setIdentificador(int identificador) {
+    public void setIdentificador(long identificador) {
         this.identificador = identificador;
     }
 
