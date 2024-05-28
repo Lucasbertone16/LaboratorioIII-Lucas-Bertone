@@ -172,16 +172,8 @@ public class ClienteInput {
     }
     
     public void mostrarCliente(int identificador) {
-        for (Cliente cliente : clientes) {
-            System.out.println("Identificador: " + cliente.getIdentificador());
-            System.out.println("Nombre: " + cliente.getNombre());
-            System.out.println("Apellido: " + cliente.getApellido());
-            System.out.println("DNI: " + cliente.getDni());
-            System.out.println("Banco: " + cliente.getBanco());
-            System.out.println("Fecha de nacimiento: " + cliente.getFechaNacimiento());
-            System.out.println("Fecha de alta: " + cliente.getFechaAlta());
-            System.out.println("--------------------------------------");
-        }
+        ClienteDAO clienteDAO= new ClienteDAO();
+        clienteDAO.mostrarCliente(identificador);
     }
 
     private boolean validarFormatoFecha(String fechaStr) {

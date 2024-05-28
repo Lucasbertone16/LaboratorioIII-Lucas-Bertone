@@ -50,9 +50,9 @@ public class Menu {
                 clienteInput.modificarCliente(identificadorClienteModificar, atributoModificar);
                     break;
                 case 3:
-                System.out.println("Ingrese el identificador del cliente que desea mostrar: ");
-                int identificadorClienteMostrar = scanner.nextInt();
-                clienteInput.mostrarCliente(identificadorClienteMostrar);
+                    System.out.println("Ingrese el identificador del cliente que desea mostrar: ");
+                    int identificadorClienteMostrar = scanner.nextInt();
+                    clienteInput.mostrarCliente(identificadorClienteMostrar);
                     break;
                 case 4:
                     System.out.println("Ingrese el identificador del cliente: ");
