@@ -43,8 +43,28 @@ public class ClienteDAO {
         }
     }
 
-    public void modificarCliente(int identificador){
-
+    public void modificarCliente(int identificador, String atributoModificar, String nuevoValor){
+        try {
+            Connection connection = conexion.ConectarDB();
+            // Construye dinámicamente la consulta SQL con el atributo a modificar
+            String sql = "UPDATE usuario SET " + atributoModificar + " = ? WHERE dni = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            
+            // Configura los parámetros en el PreparedStatement
+            statement.setString(1, nuevoValor);
+            statement.setInt(2, identificador);
+            
+            // Ejecuta la actualización y verifica las filas afectadas
+            int filasAfectadas = statement.executeUpdate();
+            
+            if (filasAfectadas > 0) {
+                System.out.println("Se modificó el valor del atributo " + atributoModificar + " por " + nuevoValor);
+            } else {
+                System.out.println("Cliente no encontrado en la base de datos");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error en la QUERY: "+ e.getMessage());
+        }
     }
 
     public void mostrarCliente(int identificador){

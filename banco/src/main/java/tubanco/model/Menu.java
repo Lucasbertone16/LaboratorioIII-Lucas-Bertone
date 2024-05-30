@@ -40,14 +40,7 @@ public class Menu {
                     clienteInput.ingresarCliente();
                     break;
                 case 2:
-                System.out.println("Ingrese el identificador del cliente que desea modificar: ");
-                int identificadorClienteModificar = scanner.nextInt();
-                scanner.nextLine();
-            
-                System.out.println("Ingrese el atributo que desea modificar (nombre, apellido, dni,fechaNacimiento, fechaAlta): ");
-                String atributoModificar = scanner.nextLine();
-            
-                clienteInput.modificarCliente(identificadorClienteModificar, atributoModificar);
+                    clienteInput.modificarCliente();
                     break;
                 case 3:
                     System.out.println("Ingrese el identificador del cliente que desea mostrar: ");

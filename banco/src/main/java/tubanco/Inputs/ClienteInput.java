@@ -3,8 +3,11 @@ package tubanco.Inputs;
 import java.util.Scanner;
 
 import tubanco.ConexionDB.*;
+import tubanco.Exceptions.FormatoFechaIncorrectoException;
+import tubanco.Exceptions.menorDeEdadException;
 import tubanco.model.Cliente; 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,84 +94,83 @@ public class ClienteInput {
         clienteDAO.eliminarCliente(identificador);
     }
 
-    public void modificarCliente(int identificador, String atributo) {
-        Cliente clienteAModificar = null;
-        System.out.println("Ingrese el identificador del cliente y luego el atributo que desea modificar: ");
-        for (Cliente cliente : clientes) {
-            if (cliente.getIdentificador() == identificador) {
-                clienteAModificar = cliente;
-                break;
-            }
-        }
+    public void modificarCliente() {
+        boolean continuar = true;
+        do {
+            System.out.println("Ingrese el identificador del cliente:");
+            int identificador = scanner.nextInt();
+            scanner.nextLine(); // Consumir el salto de línea después de nextInt()
     
-        if (clienteAModificar != null) {
-            if (atributo.equalsIgnoreCase("identificador")|| atributo.equalsIgnoreCase("banco")) {
-                System.out.println("No se puede modificar el identificador, ni el banco!!");
-            } else {
-                switch (atributo.toLowerCase()) {
-                    case "nombre":
-                        System.out.println("Ingrese el nuevo nombre del cliente: ");
-                        String nuevoNombre = scanner.nextLine();
-                        clienteAModificar.setNombre(nuevoNombre);
-                        break;
-                    case "apellido":
-                        System.out.println("Ingrese el nuevo apellido del cliente: ");
-                        String nuevoApellido = scanner.nextLine();
-                        clienteAModificar.setApellido(nuevoApellido);
-                        break;
-                    case "dni":
-                        System.out.println("Ingrese el nuevo DNI del cliente: ");
-                        long nuevoDNI = scanner.nextLong();
-                        clienteAModificar.setDni(nuevoDNI);
-                        break;
-                    case "fechaNacimiento":
-                    LocalDate fechaNacimiento = null;
-                    boolean fechaValida = false;
-                    while (!fechaValida) {
-                        System.out.println("Ingrese la nueva fecha de nacimiento del cliente (Formato: YYYY-MM-DD): ");
-                        String fechaStr = scanner.nextLine();
-                        if (validarFormatoFecha(fechaStr)) {
-                            LocalDate fechaIngresada = LocalDate.parse(fechaStr);
-                            if (!fechaIngresada.equals(clienteAModificar.getFechaNacimiento())) { // Verifica si la nueva fecha es diferente a la fecha actual
-                                fechaNacimiento = fechaIngresada;
-                                fechaValida = true;
-                            } else {
-                                System.out.println("La nueva fecha de nacimiento debe ser diferente a la fecha actual del cliente.");
-                            }
-                        } else {
-                            System.out.println("Formato de fecha inválido. Ingrese la fecha en formato YYYY-MM-DD:");
-                        }
-                    }
-                    clienteAModificar.setFechaNacimiento(fechaNacimiento);
-                    break;
-                    case "fechaAlta":
-                    LocalDate fechaAlta = null;
-                    boolean fechaValida2 = false;
-                    while (!fechaValida2) {
-                        System.out.println("Ingrese la nueva fecha de alta del cliente (Formato: YYYY-MM-DD): ");
-                        String fechaStr = scanner.nextLine();
-                        if (validarFormatoFecha(fechaStr)) {
-                            LocalDate fechaIngresada = LocalDate.parse(fechaStr);
-                            if (!fechaIngresada.equals(clienteAModificar.getFechaAlta())) { // Verifica si la nueva fecha es diferente a la fecha actual
-                                fechaAlta = fechaIngresada;
-                                fechaValida = true;
-                            } else {
-                                System.out.println("La nueva fecha de alta debe ser diferente a la fecha actual del cliente.");
-                            }
-                        } else {
-                            System.out.println("Formato de fecha inválido. Ingrese la fecha en formato YYYY-MM-DD:");
-                        }
-                    }
-                    clienteAModificar.setFechaAlta(fechaAlta);
-                    break;
-                    default:
-                        System.out.println("Atributo no válido.");
-                        break;
-                }
+            System.out.println("Seleccione el atributo a modificar:");
+            System.out.println("1. Nombre");
+            System.out.println("2. Apellido");
+            System.out.println("3. Fecha de Nacimiento");
+            System.out.println("4. Banco");
+            System.out.println("5. Tipo de Persona");
+            System.out.println("6. Salir");
+            System.out.print("Opción: ");
+            int opcion;
+            try {
+                opcion = Integer.parseInt(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Opción inválida, por favor seleccione una opción válida.");
+                continuar = true; // Volver a pedir la selección
+                continue; // Saltar al inicio del bucle
             }
-        } else {
-            System.out.println("No se encontró ningún cliente con el identificador especificado.");
-        }
+    
+            String atributoModificar;
+            switch (opcion) {
+                case 1:
+                    atributoModificar = "nombre";
+                    break;
+                case 2:
+                    atributoModificar = "apellido";
+                    break;
+                case 3:
+                    atributoModificar = "fechaNacimiento";
+                    break;
+                case 4:
+                    atributoModificar = "banco";
+                    break;
+                case 5:
+                    atributoModificar = "tipoPersona";
+                    break;
+                default:
+                    System.out.println("Opción inválida, por favor seleccione una opción válida.");
+                    continuar = true; // Volver a pedir la selección
+                    continue; // Saltar al inicio del bucle
+            }
+
+            if (opcion==3) {
+                String nuevoValor;
+                do {
+                    try {
+                        System.out.println("Ingrese el nuevo valor de la fecha en formato año-mes-dia: ");
+                        nuevoValor = scanner.nextLine().trim();
+                        validarFormatoFecha(nuevoValor);
+                        menorDeEdadException(nuevoValor);
+                        break;
+                    } catch (FormatoFechaIncorrectoException | menorDeEdadException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    
+                } while (continuar);
+            }
+            else{
+                System.out.println("Ingrese el nuevo valor para " + atributoModificar + ":");
+                String nuevoValor = scanner.nextLine().trim();
+    
+                ClienteDAO clienteDAO = new ClienteDAO();
+                clienteDAO.modificarCliente(identificador, atributoModificar, nuevoValor);
+            }
+    
+    
+            System.out.println("¿Desea modificar otro atributo del mismo cliente? (s/n)");
+            String respuesta = scanner.nextLine().trim().toLowerCase();
+            continuar = respuesta.equals("s");
+    
+        } while (continuar);
+    
     }
     
     public void mostrarCliente(int identificador) {
@@ -176,10 +178,25 @@ public class ClienteInput {
         clienteDAO.mostrarCliente(identificador);
     }
 
-    private boolean validarFormatoFecha(String fechaStr) {
+    private void validarFormatoFecha(String fechaStr) throws FormatoFechaIncorrectoException {
         String regex = "^\\d{4}-\\d{2}-\\d{2}$";
-        return fechaStr.matches(regex);
+
+        if (!fechaStr.matches(regex)) {
+            throw new FormatoFechaIncorrectoException("Formato de fecha incorrecto. Debe ser YYYY-MM-DD.");
+        }
     }
+
+    private void menorDeEdadException(String fechaStr) throws menorDeEdadException{
+        LocalDate fechaActual= LocalDate.now();
+        LocalDate fechaNacimiento = LocalDate.parse(fechaStr);
+        Period edad = Period.between(fechaNacimiento, fechaActual);
+
+        if (edad.getYears() < 18) {
+            throw new menorDeEdadException("La persona debe ser mayor de 18 años.");
+        }
+    }
+    
+
 
 
     public static List<Cliente> getClientes() {
